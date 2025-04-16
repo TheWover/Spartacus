@@ -53,7 +53,17 @@ namespace Spartacus.ProcMon
 
         public PMLEvent? GetNextEvent()
         {
-            return GetEvent(currentEventIndex++);
+            PMLEvent nextEvent = new PMLEvent();
+            try
+            {
+                nextEvent = (PMLEvent)GetEvent(currentEventIndex++);
+            }
+            catch
+            {
+                Logger.Debug("An event was invalid and thrown out.", true, true);
+            }
+
+            return nextEvent;
         }
 
         public PMLEvent? GetEvent(UInt32 eventIndex)
